@@ -1,5 +1,4 @@
 from flask import Flask, request
-from threading import Thread
 from flask_socketio import SocketIO, emit, disconnect
 import logging
 import json
@@ -17,18 +16,16 @@ def authenticate(token):
 @socketio.on('connect')
 def handle_connect():
     token = request.args.get('token')
+    nodename = request.args.get('node')
     if not authenticate(token):
         disconnect()
     else:
-        print(f"Node connected")
-
-@socketio.event('node_update')
-def handle_node_update(update):
-    print('Received update from node:', update)
+        print(f"Node {nodename} connected")
 
 @socketio.on('ctl_update')
 def ctl_update(update):
-    print('Received update from node:', update)
+    nodename = request.args.get('node')
+    print(f'Received update from {nodename}:', update)
 
 def node_state():
     data = {
@@ -38,7 +35,6 @@ def node_state():
             '2test1': '2data1'
         }
     }
-    # data = json.dumps(data)
     return data
 
 def nodes(nodes_data):

@@ -5,7 +5,7 @@ import logging
 import os
 
 sio = socketio.Client(reconnection=True, reconnection_attempts=5, reconnection_delay=1, reconnection_delay_max=5)
-
+hostname = os.getenv('HOSTNAME')
 auth_token = os.getenv('AUTH_TOKEN')
 
 def periodic_send_update():
@@ -33,7 +33,7 @@ def send_update(update):
 def connect_to_controller():
     while True:
         try:
-            sio.connect(f'ws://wscontroller:5000?token={auth_token}')
+            sio.connect(f'ws://wscontroller:5000?token={auth_token}&node={hostname}')
             break
         except Exception as e:
             print(f"Error connecting to controller: {e}")

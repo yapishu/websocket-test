@@ -15,4 +15,5 @@ services:
     container_name: wsnode
     environment:
       - AUTH_TOKEN
+      - HOSTNAME=sintering-martyrs
     restart: always
