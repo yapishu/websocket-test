@@ -26,6 +26,10 @@ def handle_connect():
 def handle_node_update(update):
     print('Received update from node:', update)
 
+@socketio.on('ctl_update')
+def ctl_update(update):
+    print('Received update from node:', update)
+
 def node_state():
     data = {
         'test1': 'data1',

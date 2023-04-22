@@ -28,7 +28,7 @@ def node_update(update):
 
 def send_update(update):
     print('Updating controller with',update)
-    sio.emit('node_update', update, namespace='/')
+    sio.emit('ctl_update', update, namespace='/')
 
 def connect_to_controller():
     while True:
